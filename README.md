@@ -50,7 +50,7 @@ Most projects are plain HTML, CSS and JavaScript:
 
 1. Download the repo (**Code → Download ZIP**) or clone it:
    ```bash
-   git clone https://github.com/Hussain1847/dump.git
+   git clone https://github.com/Hussain1847/aptech-coursework.git
    ```
 2. Open any `index.html` in your browser. For the best result, use the VS Code **Live Server** extension.
 
