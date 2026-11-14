@@ -11,7 +11,7 @@
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white)
 
-### [🌐 Try the projects live →](https://hussain1847.github.io/aptech-coursework/)
+### [🌐 Try the projects live →](https://hussainzia.github.io/aptech-coursework/)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 | Project | Description | Tech |
 |---------|-------------|------|
-| [**Star Classes website**](Aptech/E-Project%20Star%20Classes/Project) ([live](https://hussain1847.github.io/aptech-coursework/Aptech/E-Project%20Star%20Classes/Project/)) | My e-project: a responsive website for a coaching academy with a hero slider, course filter and search, faculty, contact form and map | HTML, CSS, Bootstrap 5, JS |
+| [**Star Classes website**](Aptech/E-Project%20Star%20Classes/Project) ([live](https://hussainzia.github.io/aptech-coursework/Aptech/E-Project%20Star%20Classes/Project/)) | My e-project: a responsive website for a coaching academy with a hero slider, course filter and search, faculty, contact form and map | HTML, CSS, Bootstrap 5, JS |
 | [**Rock Paper Scissors**](Aptech/js/rock%2Cpaper%2Csciessor) | Browser game with a scoreboard, keyboard shortcuts and animated results | HTML, CSS, JS |
 | [**CRUD app**](Aptech/js/crud) | Add, edit and delete items. Saved in the browser with `localStorage` | HTML, CSS, JS |
 | [**Calculator**](Aptech/web/portfolio/script.html) | Dark-theme calculator with keyboard support | HTML, CSS, JS |
@@ -52,7 +52,7 @@ Most projects are plain HTML, CSS and JavaScript:
 
 1. Download the repo (**Code → Download ZIP**) or clone it:
    ```bash
-   git clone https://github.com/Hussain1847/aptech-coursework.git
+   git clone https://github.com/hussainzia/aptech-coursework.git
    ```
 2. Open any `index.html` in your browser. For the best result, use the VS Code **Live Server** extension.
 
@@ -70,6 +70,6 @@ The PHP login system needs a local server such as XAMPP. See [its README](Aptech
 
 <div align="center">
 
-Made by [Hussain1847](https://github.com/Hussain1847)
+Made by [Hussain Zia](https://github.com/hussainzia)
 
 </div>
