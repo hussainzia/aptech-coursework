@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptech Coursework | Hussain1847</title>
+    <meta name="description" content="Web development projects from my Aptech course: websites, games and small apps built with HTML, CSS, JavaScript and Bootstrap.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6f7fb;
+            --surface: #ffffff;
+            --text: #111827;
+            --muted: #5b6474;
+            --border: #e6e8ef;
+            --accent: #ffb000;
+            --navy: #04092b;
+            --shadow: 0 12px 30px rgba(4, 9, 43, 0.08);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #070b1f;
+                --surface: #0f1533;
+                --text: #f1f5f9;
+                --muted: #a3acc2;
+                --border: #1e2750;
+                --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .hero {
+            padding: 72px 16px 88px;
+            text-align: center;
+            color: #fff;
+            background: radial-gradient(circle at 20% 0%, #1b2a6b, var(--navy) 60%);
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        h1 {
+            margin: 10px 0 12px;
+            font-size: clamp(2rem, 6vw, 3.4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 1.05rem;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: 999px;
+            transition: transform 0.15s, background 0.2s, color 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: var(--navy);
+            background: var(--accent);
+        }
+
+        .btn-ghost {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        main {
+            max-width: 1120px;
+            margin: -48px auto 0;
+            padding: 0 16px 64px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .thumb {
+            display: grid;
+            place-items: center;
+            height: 150px;
+            font-size: 3.2rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px 22px 22px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            flex: 1;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 14px 0 18px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .tags li {
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 9px 14px;
+        }
+
+        .btn-code {
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .featured {
+            grid-column: 1 / -1;
+        }
+
+        @media (min-width: 760px) {
+            .featured {
+                flex-direction: row;
+            }
+
+            .featured .thumb {
+                flex: 1.2;
+                height: auto;
+                min-height: 280px;
+            }
+
+            .featured .card-body {
+                flex: 1;
+                padding: 32px;
+            }
+
+            .featured h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        footer {
+            padding: 28px 16px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <span class="eyebrow">Aptech Coursework</span>
+        <h1>Web development projects</h1>
+        <p>Websites, games and small apps I built while learning HTML, CSS, JavaScript and Bootstrap at Aptech.
+            Click any project to try it live.</p>
+        <div class="hero-links">
+            <a class="btn btn-primary" href="Aptech/E-Project%20Star%20Classes/Project/">⭐ View the Star Classes site</a>
+            <a class="btn btn-ghost" href="https://github.com/Hussain1847/aptech-coursework">View the code on GitHub</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid">
+            <article class="card featured">
+                <div class="thumb" style="background-image: url('Aptech/E-Project%20Star%20Classes/Project/Assets/banner-5.jpg');" role="img" aria-label="Star Classes website preview"></div>
+                <div class="card-body">
+                    <span class="eyebrow">Featured · E-Project</span>
+                    <h2>Star Classes website</h2>
+                    <p>A responsive website for a coaching academy: hero slider, course search and category filter,
+                        faculty profiles, a validated contact form and an embedded map.</p>
+                    <ul class="tags">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Bootstrap 5</li>
+                        <li>JavaScript</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/E-Project%20Star%20Classes/Project/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/E-Project%20Star%20Classes/Project">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(135deg, #12305a, #081b31);" aria-hidden="true">✊✋✌️</div>
+                <div class="card-body">
+                    <h2>Rock Paper Scissors</h2>
+                    <p>Play against the computer with a live scoreboard, keyboard shortcuts and animated results.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>CSS</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/js/rock%2Cpaper%2Csciessor/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/js/rock%2Cpaper%2Csciessor">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(135deg, #e0e7ff, #dcfce7);" aria-hidden="true">📝</div>
+                <div class="card-body">
+                    <h2>CRUD App</h2>
+                    <p>Add, edit and delete items. Your list is saved in the browser so it survives a refresh.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>localStorage</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/js/crud/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/js/crud">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: radial-gradient(circle at top, #1e293b, #020617);" aria-hidden="true">🧮</div>
+                <div class="card-body">
+                    <h2>Calculator</h2>
+                    <p>A dark-theme calculator with percentage support and full keyboard input.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>CSS Grid</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/web/portfolio/script.html">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/blob/main/Aptech/web/portfolio/script.html">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(135deg, #222, #444);" aria-hidden="true">📰</div>
+                <div class="card-body">
+                    <h2>News Website</h2>
+                    <p>News cards generated from a JavaScript array and laid out with a responsive grid.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>CSS Grid</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/js/news%20web/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/js/news%20web">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(135deg, #1e3a8a, #4f46e5);" aria-hidden="true">🔐</div>
+                <div class="card-body">
+                    <h2>Login Page</h2>
+                    <p>A front-end sign-in form with validation messages and a redirect after login.
+                        Demo account: zaid@gmail.com / 123.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>Forms</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/js/gmail/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/js/gmail">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(90deg, #ffffff 50%, #0b1120 50%);" aria-hidden="true">🌗</div>
+                <div class="card-body">
+                    <h2>Dark Mode Toggle</h2>
+                    <p>Switches the page between light and dark themes with one button.</p>
+                    <ul class="tags">
+                        <li>JavaScript</li>
+                        <li>DOM</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="Aptech/js/change%20color/">Live demo</a>
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/js/change%20color">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb" style="background: linear-gradient(135deg, #777bb4, #4f5b93);" aria-hidden="true">🐘</div>
+                <div class="card-body">
+                    <h2>PHP Login System</h2>
+                    <p>Sign up, log in and log out with hashed passwords and prepared statements.
+                        Needs PHP and MySQL, so it can't run on GitHub Pages; see its README to run it with XAMPP.</p>
+                    <ul class="tags">
+                        <li>PHP</li>
+                        <li>MySQL</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn btn-code" href="https://github.com/Hussain1847/aptech-coursework/tree/main/Aptech/php/login">View code</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        Made by <a href="https://github.com/Hussain1847">Hussain1847</a>
+    </footer>
+</body>
+
+</html>
