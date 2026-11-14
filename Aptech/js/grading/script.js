@@ -1,45 +1,42 @@
-for (let count = 1; count <= 5;  count++) {
-    console.log("Apna College");//5 execute
+// ----- for loop: runs 5 times -----
+for (let count = 1; count <= 5; count++) {
+    console.log("Apna College");
 }
-
 console.log("loop has ended");
 
-
-
-
+// ----- sum of 1 to 5 -----
 let sum = 0;
-for (let  i= 1; i <= 5;  i++) {
-    sum=sum + i ;//sum = 15 3+3+3+3+3+
+for (let i = 1; i <= 5; i++) {
+    sum += i; // 1 + 2 + 3 + 4 + 5 = 15
 }
-
 console.log("sum =", sum);
 
-
-
-let score = prompt("enter your score(0-100):");
-let grade;
-
-if (score >=90 && score <=100) {
-    grade = "A";
-}else if (score >=70 && score <= 89) {
-    grade = "B";
-}else if (score >=60 && score <= 69) {
-    grade = "C";
-}else if (score >=50 && score <= 59) {
-    grade = "D";
-}else if (score >=0 && score <= 49) {
-    grade = "F";
+// ----- grade calculator -----
+// prompt() returns text, so convert it to a number first.
+// Checking from the top down (>= 90, then >= 70...) means decimals like 89.5 can't fall through a gap.
+function getGrade(score) {
+    if (Number.isNaN(score) || score < 0 || score > 100) return null;
+    if (score >= 90) return "A";
+    if (score >= 70) return "B";
+    if (score >= 60) return "C";
+    if (score >= 50) return "D";
+    return "F";
 }
 
-console.log("according to your scores,your grade was :",grade )
+const score = Number(prompt("Enter your score (0-100):"));
+const grade = getGrade(score);
 
+if (grade) {
+    console.log("According to your score, your grade is:", grade);
+} else {
+    console.log("Please enter a number between 0 and 100.");
+}
 
-let str ="apnacollege"
-newStr = str.toUpperCase();
-console.log(newStr1);
+// ----- strings are immutable: methods return a NEW string -----
+const str = "apnacollege";
+const newStr = str.toUpperCase();
+console.log(newStr); // APNACOLLEGE
+console.log(str);    // apnacollege (unchanged)
 
-////string are immutable//////
-
-
-let str4 = "     apna college  js  ";
-console.log(str4.trim())
+const str4 = "     apna college  js  ";
+console.log(str4.trim());

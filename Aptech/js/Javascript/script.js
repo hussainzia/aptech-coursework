@@ -125,24 +125,17 @@ let age3 = prompt("enter your age")
 //}
 
 
-let password=document.querySelector("#passinput")
-let email=document.getElementById("#emailinput")
+// querySelector takes a CSS selector ("#id"), but getElementById takes the bare id (no "#").
+const password = document.querySelector("#passinput");
+const email = document.getElementById("emailinput");
 
-let email1="adil@gmail.com"
-let alreadypassword = 12345
+const savedEmail = "adil@gmail.com";
+const savedPassword = "12345"; // input values are always strings, so compare with a string
 
 function getValue() {
-    console.log(emailinput.value)
-    console.log(passinput.value)
-    console.log(password.value)
-    console.log(email.value)
-    
-   
-
- if (emailinput.value == email1 && password.value == alreadypassword) {
-    console.log("login ho gaya");
- }else{
-        console.log("program");
+    if (email.value.trim() === savedEmail && password.value === savedPassword) {
+        console.log("Login successful");
+    } else {
+        console.log("Incorrect email or password");
     }
-
 }

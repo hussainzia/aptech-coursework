@@ -3,61 +3,80 @@ let compScore = 0;
 
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
-
 const userScorePara = document.querySelector("#user-score");
 const compScorePara = document.querySelector("#comp-score");
+const resetBtn = document.querySelector("#reset");
 
-const genCompChoice = () => {
-    const options = ["rock", "paper", "scissors"];
-    const randIdx = Math.floor(Math.random() * 3);
-    return options[randIdx];
-};
+const OPTIONS = ["rock", "paper", "scissors"];
+const BEATS = { rock: "scissors", paper: "rock", scissors: "paper" }; // key beats value
+const EMOJI = { rock: "✊", paper: "✋", scissors: "✌️" };
 
-const drawGame = () => {
-    msg.innerText = "Game was Draw. Play again.";
-    msg.style.backgroundColor = "#081b31";
+const genCompChoice = () => OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
+
+const capitalize = (word) => word[0].toUpperCase() + word.slice(1);
+
+// Restart the CSS animation so it plays on every round, even the same result twice
+function showMessage(text, state) {
+    msg.textContent = text;
+    msg.className = "";
+    void msg.offsetWidth;
+    msg.className = state;
+}
+
+function bump(element) {
+    element.classList.remove("bump");
+    void element.offsetWidth;
+    element.classList.add("bump");
+}
+
+const drawGame = (choice) => {
+    showMessage(`${EMOJI[choice]} It's a draw! You both picked ${choice}.`, "draw");
 };
 
 const showWinner = (userWin, userChoice, compChoice) => {
     if (userWin) {
         userScore++;
-        userScorePara.innerText = userScore;
-        msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
-        msg.style.backgroundColor = "green";
+        userScorePara.textContent = userScore;
+        bump(userScorePara);
+        showMessage(`🎉 You win! Your ${userChoice} ${EMOJI[userChoice]} beats ${compChoice} ${EMOJI[compChoice]}`, "win");
     } else {
         compScore++;
-        compScorePara.innerText = compScore;
-        msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
-        msg.style.backgroundColor = "red";
+        compScorePara.textContent = compScore;
+        bump(compScorePara);
+        showMessage(`😢 You lost. ${capitalize(compChoice)} ${EMOJI[compChoice]} beats your ${userChoice} ${EMOJI[userChoice]}`, "lose");
     }
 };
 
 const playGame = (userChoice) => {
-    //Generate computer choice
     const compChoice = genCompChoice();
 
+    choices.forEach((choice) => choice.classList.toggle("picked", choice.id === userChoice));
+
     if (userChoice === compChoice) {
-        //Draw Game
-        drawGame();
+        drawGame(userChoice);
     } else {
-        let userWin = true;
-        if (userChoice === "rock") {
-            //scissors, paper
-            userWin = compChoice === "paper" ? false : true;
-        } else if (userChoice === "paper") {
-            //rock, scissors
-            userWin = compChoice === "scissors" ? false : true;
-        } else {
-            //rock, paper
-            userWin = compChoice === "rock" ? false : true;
-        }
-        showWinner(userWin, userChoice, compChoice);
+        showWinner(BEATS[userChoice] === compChoice, userChoice, compChoice);
     }
 };
 
 choices.forEach((choice) => {
-    choice.addEventListener("click", () => {
-        const userChoice = choice.getAttribute("id");
-        playGame(userChoice);
-    });
+    choice.addEventListener("click", () => playGame(choice.id));
+});
+
+// Keyboard shortcuts: R, P, S
+document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    const choice = OPTIONS.find((option) => option[0] === key);
+    if (choice && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        playGame(choice);
+    }
+});
+
+resetBtn.addEventListener("click", () => {
+    userScore = 0;
+    compScore = 0;
+    userScorePara.textContent = 0;
+    compScorePara.textContent = 0;
+    choices.forEach((choice) => choice.classList.remove("picked"));
+    showMessage("Play your move", "");
 });

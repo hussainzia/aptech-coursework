@@ -1,65 +1,73 @@
-<?php 
+<?php
+session_start();
+require 'config.php';
 
+$error = '';
+$email = '';
 
-include 'config.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email    = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-if($_SERVER['request_METHOD'] == 'POST') {
-    $email $_POST['email'];
-    $password = $_POST['password'];
-
-    if(!empty($email)  && !empty($password)) {
-
-        $stmt = $conn->prepare(query: "SELECT * FROM users WHERE email=? AND password=?");
-        $stmt->bind_paran(types: "ss", var: &$email, vars: &$password);
-        $stmt->execute():
-        $result = $stmt->get_result();
-
-        if($result->num_rows > 0) {
-            // User found,redirect to a welcome page or profile page
-            header(header: "Location: profile.php");
-            exit();
-        } else {
-            // Invalid credentials
-            echo "<div class='alert alert-danger'>Invalid email or password.</div>";
-        }
+    if ($email === '' || $password === '') {
+        $error = 'Please fill in all fields.';
     } else {
-        echo "<div class='alert alert-warning'>Please fill in all fields.</div>";
+        // Prepared statement: user input is never pasted into the SQL (prevents SQL injection).
+        $stmt = $conn->prepare('SELECT id, password_hash FROM users WHERE email = ?');
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+
+        if ($user && password_verify($password, $user['password_hash'])) {
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email']   = $email;
+            header('Location: profile.php');
+            exit;
+        }
+
+        $error = 'Invalid email or password.';
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
+    <title>Log in</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="bg-body-tertiary">
+    <main class="container py-5" style="max-width: 420px;">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-1">Welcome back</h1>
+                <p class="text-secondary mb-4">Log in to your account</p>
 
+                <?php if ($error): ?>
+                    <div class="alert alert-danger" role="alert"><?= e($error) ?></div>
+                <?php endif; ?>
 
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-    
+                <form method="post" novalidate>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="<?= e($email) ?>" autocomplete="username" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               autocomplete="current-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Log in</button>
+                </form>
+
+                <p class="text-center mt-4 mb-0">
+                    No account yet? <a href="create.php">Create one</a>
+                </p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

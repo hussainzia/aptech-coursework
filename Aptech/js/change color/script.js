@@ -1,35 +1,13 @@
-/*let modeBtn = document.querySelector("#mode");
-let body = document.querySelector("body");
-let currMode = "light"; //dark
+const modeBtn = document.querySelector("#mode");
+const body = document.body;
 
 modeBtn.addEventListener("click", () => {
-    if (currMode === "light") {
-        currMode = "dark";
-        body.classList.add("dark");
-    } else {
-        currMode === "light";
-        body.classList.add("light");
-    }
+    // Swap the classes so only one theme is active at a time
+    // (adding classes without removing the old one would leave both on the page).
+    const isDark = body.classList.toggle("dark");
+    body.classList.toggle("light", !isDark);
 
-    console.log(currMode);
-
-});*/
-
-
-
-let modeBtn = document.querySelector("#mode");
-
-let currMode = "light"; //dark
-
-modeBtn.addEventListener("click", () => {
-    if (currMode === "light") {
-        currMode = "dark";
-        document.querySelector("body").style.backgroundColor = "black";
-    } else {
-        currMode = "light";
-        document.querySelector("body").style.backgroundColor = "white";
-    }
-
-    console.log(currMode);
-
+    modeBtn.textContent = isDark ? "☀️ Switch to light mode" : "🌙 Switch to dark mode";
+    modeBtn.setAttribute("aria-pressed", String(isDark));
+    console.log(isDark ? "dark" : "light");
 });

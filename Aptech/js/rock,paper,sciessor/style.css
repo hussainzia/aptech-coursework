@@ -1,68 +1,204 @@
+:root {
+    --bg: #081b31;
+    --bg-2: #12305a;
+    --card: rgba(255, 255, 255, 0.06);
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --win: #22c55e;
+    --lose: #ef4444;
+    --draw: #f59e0b;
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    padding: 0 16px 48px;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
     text-align: center;
+    color: var(--text);
+    background: radial-gradient(circle at top, var(--bg-2), var(--bg) 70%);
+}
+
+header {
+    padding: 48px 0 8px;
 }
 
 h1 {
-    background-color: #081b31;
-    color: #fff;
-    height: 5rem;
-    line-height: 5rem;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
-.choice {
-    height: 165px;
-    width: 165px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+h1 span {
+    color: var(--draw);
 }
 
-.choice:hover {
-    cursor: pointer;
-    background-color: #081b31;
+.subtitle {
+    margin-top: 8px;
+    color: var(--muted);
 }
 
-img {
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-}
+/* ---------- Choices ---------- */
 
 .choices {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    margin-top: 5rem;
+    flex-wrap: wrap;
+    gap: clamp(0.6rem, 4vw, 3rem);
+    margin-top: 48px;
 }
+
+.choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: clamp(8px, 2.5vw, 14px);
+    font: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--card);
+    border: 2px solid transparent;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.choice img {
+    width: clamp(72px, 20vw, 150px);
+    height: clamp(72px, 20vw, 150px);
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s;
+}
+
+.choice:hover,
+.choice:focus-visible {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.25);
+    outline: none;
+}
+
+.choice:hover img {
+    transform: rotate(-6deg) scale(1.04);
+}
+
+.choice:active {
+    transform: scale(0.96);
+}
+
+.choice.picked {
+    border-color: var(--draw);
+    background: rgba(245, 158, 11, 0.12);
+}
+
+/* ---------- Scoreboard ---------- */
 
 .score-board {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    margin-top: 3rem;
-    gap: 5rem;
+    gap: clamp(1.5rem, 8vw, 5rem);
+    max-width: 520px;
+    margin: 48px auto 0;
+    padding: 20px 24px;
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
 }
 
 #user-score,
 #comp-score {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
 }
 
+.label {
+    margin-top: 6px;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+.vs {
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.bump {
+    animation: bump 0.4s ease;
+}
+
+@keyframes bump {
+    50% {
+        transform: scale(1.35);
+        color: var(--draw);
+    }
+}
+
+/* ---------- Result message ---------- */
+
 .msg-container {
-    margin-top: 5rem;
+    margin-top: 40px;
 }
 
 #msg {
-    background-color: #081b31;
-    color: #fff;
-    font-size: 2rem;
-    display: inline;
-    padding: 1rem;
-    border-radius: 1rem;
+    display: inline-block;
+    max-width: 100%;
+    padding: 14px 24px;
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: background 0.3s;
+}
+
+#msg.win { background: var(--win); }
+#msg.lose { background: var(--lose); }
+#msg.draw { background: var(--draw); color: #1f1300; }
+
+#msg.win,
+#msg.lose,
+#msg.draw {
+    animation: pop 0.35s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+}
+
+.reset {
+    margin-top: 32px;
+    padding: 10px 22px;
+    font: inherit;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.reset:hover {
+    color: var(--text);
+    border-color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 }
